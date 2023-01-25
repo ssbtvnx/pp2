@@ -1,0 +1,6 @@
+myname="Tom"
+my_name="Tom"
+_my_name="Tom"
+myName="Tom"
+MYNAME="Tom"
+myname1="Tom"
