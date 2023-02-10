@@ -75,6 +75,7 @@ movies = [
 "category": "Romance"
 }
 ]
+
 def sublist(x):
     list=[]
     for i in x:
@@ -83,4 +84,4 @@ def sublist(x):
     return list
     
 
-print(sublist(movies))
+print(sublist(baisallove))

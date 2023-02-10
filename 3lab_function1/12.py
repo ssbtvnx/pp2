@@ -1,9 +1,9 @@
 def histogram(x):
     for i in x:
-        k=i #2
-        while k!=0: 
+        a=i #2
+        while a!=0: 
             print('*',end='')
-            k=k-1
+            a=a-1
         print()
 
 

@@ -75,9 +75,9 @@ movies = [
 "category": "Romance"
 }
 ]
-def baisal(movie):
+def baisal(x):
     for i in movies:
-        if i['name']==movie:
+        if i['name']==x:
             if i['imdb']>5.5:
                 return True
             else:

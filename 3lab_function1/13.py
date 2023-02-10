@@ -9,7 +9,8 @@ while True:
     guesses+=1
     if number==x:
         print("Good job,",  s, "You guessed my number in", guesses, "guesses!")
-      if number<x:
-         print("Your guess is too low.")
-      elif number>x:  # 
-           print("Your guess is too high.")
+        break
+    elif number<x:
+        print("Your guess is too low.")
+    else:  
+        print("Your guess is too high.")
