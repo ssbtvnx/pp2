@@ -6,4 +6,4 @@ def has_33(nums):
 nums1=[1, 3, 3]
 nums2=[1, 3, 1, 3]
 nums3=[3, 1, 3]
-print(has_33(nums2))
+print(has_33(nums1)) 
