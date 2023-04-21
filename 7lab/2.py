@@ -1,7 +1,7 @@
 import pygame
 import os
 
-path = r'C:\Users\user\Documents\album.jpg'
+path = r'album.jpg'
 photo = pygame.image.load(path) #загружает изображение
 #координаты
 photox = 1
@@ -10,7 +10,7 @@ photoy = 1
 def image():
     screen.blit(photo, (photox, photoy)) #отрисовывает изображение
 
-path2 = r'C:\Users\user\Documents\album'
+path2 = r'C:\Users\user\Documents'
 album = os.listdir(path2) #создаем список всех файлов в этой папке
 song_index = 0
 

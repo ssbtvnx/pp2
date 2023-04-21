@@ -47,14 +47,14 @@ while True:
     #eating food
     if snake[-1]==food:
         food=randrange(0,square,size) , randrange(0,square,size)
-        length+=1
+        length+=2
         score+=1
         if score%3==0:
             level+=1
             FPS+=2 
     
     #game over
-    if x<=0 or x>=square or y<=-1 or y>=square or len(snake)!=len(set(snake)):
+    if x<=0 or x>=square+10 or y<=0 or y>=square or len(snake)!=len(set(snake)):
         while True:
             render_end=font_end.render('Game over!',1,pygame.Color('blue'))
             screen.blit(render_end,(square//2-190, square//2.5 ))

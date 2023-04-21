@@ -15,16 +15,16 @@ screen = pygame.display.set_mode((500, 500))
 clock = pygame.time.Clock()  # Creating a clock object for setting the frame rate
 
 # Loading the Mickey Mouse background image
-mickey = pygame.image.load(r'C:\Users\user\Documents\mickey.jpg')
+mickey = pygame.image.load(r'mickey.jpg')
 mickey = pygame.transform.scale(mickey, (500, 500))  # Scaling the image to fit the window
 
 # Loading the clock hand images and setting their positions
-handmin = pygame.image.load(r'C:\Users\user\Documents\minhand.png')
+handmin = pygame.image.load(r'minhand.png')
 handmin = pygame.transform.scale(handmin, (200, 300))
 handmin_rect = handmin.get_rect()
 handmin_rect.center = (250, 250)  # Setting the center position of the minute hand
 
-handsec = pygame.image.load(r'C:\Users\user\Documents\sechand.png')
+handsec = pygame.image.load(r'sechand.png')
 handsec = pygame.transform.scale(handsec, (200, 270))
 handsec_rect = handsec.get_rect()
 handsec_rect.center = (250, 250)  # Setting the center position of the second hand
