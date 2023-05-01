@@ -10,7 +10,7 @@ photoy = 1
 def image():
     screen.blit(photo, (photox, photoy)) #отрисовывает изображение
 
-path2 = r'C:\Users\user\Documents'
+path2 = r'C:\Users\user\Documents\album'
 album = os.listdir(path2) #создаем список всех файлов в этой папке
 song_index = 0
 
