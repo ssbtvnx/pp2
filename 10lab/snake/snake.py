@@ -10,10 +10,6 @@ sql_insert = '''
     INSERT INTO snakegame VALUES(DEFAULT, %s, %s, %s);
 '''
 
-sql_upd = '''
-    UPDATE snakegame SET score = %s, level = %s WHERE name = %s;
-'''
-
 sql_delete = '''
     DELETE FROM snakegame WHERE name = %s;
 '''
@@ -28,15 +24,16 @@ conn = ps.connect(host = 'localhost',
                   database = 'postgres',
                   user = 'postgres',
                   password = 'delete',
-                  port = 5432
+                  port = '5432'
 )
 
 
-cur = conn.cursor()
+cur = conn.cursor() #создает курсор который вызывает функции sql
 
-cur.execute(sql_show_score)
-hhhh = cur.fetchall()
+cur.execute(sql_show_score) #для выполнения запросов SQL к базе данных 
+hhhh = cur.fetchall() #список кортежей присваивается переменной
 pygame.init()
+
 
 background = pygame.transform.scale(pygame.image.load(os.path.join('asset', 'snakeback.png')), (600, 600))
 size=30
@@ -57,25 +54,28 @@ def food_disappers(seconds=6):
     
 def show_score():
     while True:
+        diff = 50
         screen.fill(pygame.Color('black'))
-        top_render = font_top.render(top, 1, pygame.Color('white'))
-        screen.blit(top_render, (50, 5))
+        top_render = font_top.render(top, 1, pygame.Color('white')) #  render()создает новую поверхность, содержащую визуализированный текст
+        screen.blit(top_render, (50, 5)) #отображает
         mystring = ''
-        for i, j in enumerate(hhhh):
-            mystring += str(i+1)
+        for i, j in enumerate(hhhh): #возвращает кортеж, содержащий индекс текущей строки и сами данные строки
+            mystring = ''
+            mystring += str(i+1) #индекс
             mystring += ' '
-            mystring += str(j) + ' '
-
-        mystring.strip()
-        table_render = font_table.render(mystring, 1, pygame.Color('white'))
-        screen.blit(table_render,(20, 50))
+            mystring += str(j) + ' ' #данные
+            table_render = font_table.render(mystring, 1, pygame.Color('white'))
+            screen.blit(table_render,(20, diff))
+            diff += 20 #чтобы сдвинуть позицию следующей строки таблицы вниз на 20 пикселей
         pygame.display.update()
+        key = pygame.key.get_pressed()
+        if key[pygame.K_ESCAPE]:
+            break
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 cur.close()
                 conn.close()
                 exit()
-
 
 def close_game():
     for event in pygame.event.get():
@@ -89,8 +89,8 @@ def start_game():
     food=randrange(0, square, size), randrange(0, square, size)
     food1 = randrange(0, square, size), randrange(0, square, size)
     length=1
-    global snake
-    snake=[(x, y)]
+    global snakegame
+    snakegame=[(x, y)]
     dx,dy=0, 0
     FPS=6
     score=0
@@ -99,8 +99,8 @@ def start_game():
     
     while True:
         screen.fill(pygame.Color('black'))
-        #drawing snake, food
-        [pygame.draw.rect(screen, pygame.Color('green'), (i, j, size-2, size-2)) for i, j in snake]
+        #drawing snakegame, food
+        [pygame.draw.rect(screen, pygame.Color('green'), (i, j, size-2, size-2)) for i, j in snakegame]
         pygame.draw.rect(screen, pygame.Color('red'), (*food, size, size))
         pygame.draw.rect(screen,pygame.Color('orange'),(*food1, size, size))
     
@@ -110,29 +110,28 @@ def start_game():
         render_level=font_score.render(f'Level:{level}', 1,pygame.Color('blue'))
         screen.blit(render_level, (size*15, 5))
     
-        #snake movement
+        #snakegame movement
         x+=dx*size
         y+=dy*size 
-        snake.append((x,y))
-        snake=snake[-length:]
+        snakegame.append((x,y))
+        snakegame=snakegame[-length:]
 
     
     #eating food
-        if snake[-1]==food:
+        if snakegame[-1]==food:
             food=randrange(0,square,size) , randrange(0,square,size)
             length+=1
             score+=1
-        elif snake[-1]==food1:
+        elif snakegame[-1]==food1:
             food1=randrange(0, square, size), randrange(0, square, size)
             length+=2
             score+=1
             if score%3==0:
                 level+=1
-                FPS+=2 
-    
+                FPS+=2
 
-    #game over
-        if x<0 or x>square-size or y<-1 or y>square-size or len(snake)!=len(set(snake)):
+#game over
+        if x<0 or x>square or y<-1 or y>square or len(snakegame)!=len(set(snakegame)):
             cur.execute(sql_delete, (name,))
             cur.execute(sql_insert, (name, score, level))
             break
@@ -141,8 +140,6 @@ def start_game():
         clock.tick(FPS)
         food_disappers()
         close_game()
-
-
 
     #controls
         key=pygame.key.get_pressed()
@@ -160,7 +157,7 @@ def start_game():
             smth={'UP':True, 'DOWN':True, 'RIGHT':False, 'LEFT':True}
     
 
-menu = pygame_menu.Menu('Snake', 400, 300,
+menu = pygame_menu.Menu('snakegame', 400, 300,
                        theme=pygame_menu.themes.THEME_GREEN.set_background_color_opacity(1))
 
 menu.add.button('Play', start_game)
