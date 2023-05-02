@@ -17,7 +17,7 @@ ans = input("Need offset? ")
 if ans == "yes":
     print("Enter offset: ")
     offset = int(input())
-    sql += " OFFSET {}".format(offset)
+    sql += " OFFSET {}".format(offset) # offset чтобы пропустить указанное количество строк в результате запроса, format()используются для указания места вставки
 ans = input("Need limit? ")
 if ans == "yes":
     print("Enter limit: ")

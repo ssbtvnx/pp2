@@ -47,7 +47,7 @@ elif ans == 'name':
         if mode1==1:
             sql+="='{}'".format(string)
         elif mode1==2:
-            sql+=" iLIKE '{}%'".format(string)
+            sql+=" iLIKE '{}%'".format(string)  #для сопоставления с образцом без учета регистра
         elif mode1==3:
             sql+=" iLIKE '%{}'".format(string)
         else:
